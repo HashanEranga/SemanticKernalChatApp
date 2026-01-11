@@ -1,0 +1,46 @@
+<div class="message" [class.user]="message().role === 'user'" [class.assistant]="message().role === 'assistant'">
+  <div class="message-avatar">
+    @if (message().role === 'user') {
+      <div class="avatar user-avatar">U</div>
+    } @else {
+      <div class="avatar assistant-avatar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 8V4H8"></path>
+          <rect width="16" height="12" x="4" y="8" rx="2"></rect>
+          <path d="M2 14h2"></path>
+          <path d="M20 14h2"></path>
+          <path d="M15 13v2"></path>
+          <path d="M9 13v2"></path>
+        </svg>
+      </div>
+    }
+  </div>
+
+  <div class="message-content">
+    <div class="message-header">
+      <span class="message-role">{{ message().role === 'user' ? 'You' : 'Assistant' }}</span>
+      <span class="message-time">{{ formatTime(message().timestamp) }}</span>
+    </div>
+    <div class="message-text">
+      {{ message().content }}
+    </div>
+    @if (message().role === 'assistant') {
+      <div class="message-actions">
+        <button class="action-btn" title="Copy">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+          </svg>
+        </button>
+        <button class="action-btn" title="Regenerate">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+            <path d="M21 3v5h-5"></path>
+            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+            <path d="M8 16H3v5"></path>
+          </svg>
+        </button>
+      </div>
+    }
+  </div>
+</div>
