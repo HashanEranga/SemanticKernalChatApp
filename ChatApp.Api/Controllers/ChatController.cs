@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
 
 namespace ChatApp.Api.Controllers
 {
@@ -43,7 +44,7 @@ namespace ChatApp.Api.Controllers
                 // Add current user message
                 history.AddUserMessage(request.Prompt);
 
-                var response = await chatCompletionService.GetChatMessageContentAsync(history, promptExecutionSettings);
+                var response = await chatCompletionService.GetChatMessageContentAsync(history, promptExecutionSettings, kernel);
 
                 return Ok(response);
             }

@@ -1,3 +1,4 @@
+using ChatApp.Api.Plugins;
 using ChatApp.Api.Services;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
@@ -24,15 +25,21 @@ builder.Services.AddCors(options =>
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-builder.Services.AddKernel();
-builder.Services.AddAzureOpenAIChatCompletion(
+var kernelBuilder = builder.Services.AddKernel();
+kernelBuilder.Plugins.AddFromType<Clock>();
+kernelBuilder.Plugins.AddFromType<DeveloperInfo>();
+
+kernelBuilder.AddAzureOpenAIChatCompletion(
     endpoint: builder.Configuration["ENDPOINT"]!,
     apiKey: builder.Configuration["APIKEY"]!,
     deploymentName: builder.Configuration["DEPLOYMENT"]!);
 
+FunctionChoiceBehaviorOptions options = new() { AllowConcurrentInvocation = true };
+
 builder.Services.AddSingleton<PromptExecutionSettings>(_ => new OpenAIPromptExecutionSettings
 {
     Temperature = 0.7,
+    FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(options: options),
 });
 
 builder.Services.AddTransient<IChatService, ChatService>();
