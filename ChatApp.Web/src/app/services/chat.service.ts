@@ -8,7 +8,7 @@ import { ChatMessage, Conversation, ChatRequest, ChatHistoryItem, ChatResponse }
 })
 export class ChatService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'https://localhost:7112/api/chat';
+  private readonly apiUrl = 'http://localhost:5239/api/chat';
 
   private readonly conversation = signal<Conversation>(this.createEmptyConversation());
   private readonly isLoading = signal(false);

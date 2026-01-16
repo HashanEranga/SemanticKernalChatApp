@@ -26,9 +26,9 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddKernel();
 builder.Services.AddAzureOpenAIChatCompletion(
-    endpoint: builder.Configuration["AzureOpenAI:Endpoint"]!,
-    apiKey: builder.Configuration["AzureOpenAI:ApiKey"]!,
-    deploymentName: builder.Configuration["AzureOpenAI:DeploymentName"]!);
+    endpoint: builder.Configuration["ENDPOINT"]!,
+    apiKey: builder.Configuration["APIKEY"]!,
+    deploymentName: builder.Configuration["DEPLOYMENT"]!);
 
 builder.Services.AddSingleton<PromptExecutionSettings>(_ => new OpenAIPromptExecutionSettings
 {
